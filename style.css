@@ -12,3 +12,7 @@ svg {
     height: auto;
     vertical-align: middle;
 }
+
+body {
+    background-color: #16181c;
+}
