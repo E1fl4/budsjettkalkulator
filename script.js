@@ -17,6 +17,7 @@ function calc() {
     for (let i in inntekter) total += parseInt(inntekter[i].tall.value || 0);
     for (let i in utgifter) total -= parseInt(utgifter[i].tall.value || 0);
     document.querySelector(".total").innerText = total;
+    document.querySelector(".total").style.color = (total < 0) ? "red" : "white";
     if (document.querySelector(".total").innerText == "NaN") {
         document.querySelector(".total").innerText = "baNaN";
     }
