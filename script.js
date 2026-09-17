@@ -1,11 +1,25 @@
 for (let i in document.querySelectorAll("input")) {
     document.querySelectorAll("input")[i].onkeydown = (e) => {
+        if (e.code == "Enter") document.querySelectorAll("input")[i].blur();
         return (e.code.includes("Digit") || e.code == "Backspace");
     };
 }
 
-let inntekter = [];
+let inntekter = [
+    {
+        tall: document.querySelector("input")
+    }
+];
 let utgifter = [];
+
+function calc() {
+    let total = 0;
+    for (let i in inntekter) total += parseInt(inntekter[i].tall.value || 0);
+    for (let i in utgifter) total -= parseInt(utgifter[i].tall.value || 0);
+    document.querySelector(".total").innerText = total;
+}
+
+document.querySelector("input").addEventListener("focusout", calc);
 
 function nyInntekt() {
     let inntekt = {
@@ -32,8 +46,10 @@ function nyInntekt() {
 
     inntekt.tall.type = "text";
     inntekt.tall.onkeydown = (e) => {
+        if (e.code == "Enter") inntekt.tall.blur();
         return (e.code.includes("Digit") || e.code == "Backspace");
     };
+    inntekt.tall.addEventListener("focusout", calc);
     inntekt.div.appendChild(inntekt.tekst);
     inntekt.div.appendChild(inntekt.navnInput);
     inntekt.div.appendChild(inntekt.tall);
@@ -68,8 +84,10 @@ function nyUtgift() {
 
     utgift.tall.type = "text";
     utgift.tall.onkeydown = (e) => {
+        if (e.code == "Enter") utgift.tall.blur();
         return (e.code.includes("Digit") || e.code == "Backspace");
     };
+    utgift.tall.addEventListener("focusout", calc);
     utgift.div.appendChild(utgift.tekst);
     utgift.div.appendChild(utgift.navnInput);
     utgift.div.appendChild(utgift.tall);
